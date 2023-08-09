@@ -42,6 +42,15 @@ unsigned int GradoMax(const Agen<T>& A){
 #pragma region Ejercicio2
 //Implementa un subprograma que dados un árbol y un nodo dentro de dicho árbol determine la profundidad de éste nodo en el árbol. 
 
+template <typename T>
+unsigned int ProfundidadNodoAgen(const Agen<T>& A,const typename Agen<T>::nodo nodo){
+    if(A.arbolVacio() || A.NODO_NULO == nodo || A.padre(nodo) == A.NODO_NULO){
+        return 0;
+    }else{
+        return 1 + ProfundidadNodoAgen(A,A.padre(nodo));
+    }
+}
+
 #pragma endregion
 
 #pragma region Ejercicio3
