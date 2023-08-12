@@ -179,7 +179,7 @@ template<typename T>
 void poda(Agen<T> &A,typename Agen<T>::nodo nodo){
     if(nodo != A.NODO_NULO){
         while(A.hijoIzqdo(nodo) != agen.NODO_NULO){
-           poda(A,agen.hijoIzqdo(nodo));
+           poda(A,A.hijoIzqdo(nodo));
            A.eliminarHijoIzqdo(nodo); 
         }
     }
