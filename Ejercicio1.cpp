@@ -176,20 +176,20 @@ unsigned int DesequilibrioAgen(const Agen<T> &A){
 de A a partir de x. Se asume que no hay elementos repetidos en A.*/
 
 template<typename T>
-void BusquedaX(Agen<T> &agen,T X,typename Agen<T>::nodo nodo){
-    if(nodo != agen.NODO_NULO){
-        typename Agen<T>::nodo nodoAux = agen.hijoIzqdo(nodo);
+void BusquedaX(Agen<T> &A,T X,typename Agen<T>::nodo nodo){
+    if(nodo != A.NODO_NULO){
+        typename Agen<T>::nodo nodoAux = A.hijoIzqdo(nodo);
 
-        while(nodoAux != agen.NODO_NULO){
+        while(nodoAux != A.NODO_NULO){
            
         }
     }
 }
 
 template<typename T>
-void PodaDeX(Agen<T> &agen,T X){
-    if(!agen.arbolVacio()){
-        BusquedaX(agen,X,agen.raiz());
+void PodaDeX(Agen<T> &A,T X){
+    if(!A.arbolVacio()){
+        BusquedaX(A,X,A.raiz());
     }
 }
 
