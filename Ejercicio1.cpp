@@ -175,6 +175,24 @@ unsigned int DesequilibrioAgen(const Agen<T> &A){
 /*Dado un árbol general de enteros A y un entero x, implementa un subprograma que realice la poda
 de A a partir de x. Se asume que no hay elementos repetidos en A.*/
 
+template<typename T>
+void BusquedaX(Agen<T> &agen,T X,typename Agen<T>::nodo nodo){
+    if(nodo != agen.NODO_NULO){
+        typename Agen<T>::nodo nodoAux = agen.hijoIzqdo(nodo);
+
+        while(nodoAux != agen.NODO_NULO){
+           
+        }
+    }
+}
+
+template<typename T>
+void PodaDeX(Agen<T> &agen,T X){
+    if(!agen.arbolVacio()){
+        BusquedaX(agen,X,agen.raiz());
+    }
+}
+
 #pragma endregion
 /*
 Code by Falilp
