@@ -176,12 +176,27 @@ unsigned int DesequilibrioAgen(const Agen<T> &A){
 de A a partir de x. Se asume que no hay elementos repetidos en A.*/
 
 template<typename T>
+void poda(Agen<T> &A,typename Agen<T>::nodo nodo){
+    if(nodo != A.NODO_NULO){
+        while(A.hijoIzqdo(nodo) != agen.NODO_NULO){
+           poda(A,agen.hijoIzqdo(nodo));
+           A.eliminarHijoIzqdo(nodo); 
+        }
+    }
+}
+
+template<typename T>
 void BusquedaX(Agen<T> &A,T X,typename Agen<T>::nodo nodo){
     if(nodo != A.NODO_NULO){
         typename Agen<T>::nodo nodoAux = A.hijoIzqdo(nodo);
 
         while(nodoAux != A.NODO_NULO){
-           
+            if(X == A.elemento(nodoAux)){
+                poda(A,nodoAux);
+            }else{
+                BusquedaX(A,X,nodoAux);
+                nodoAux = A.hermDrcho(nodoAux);
+            }
         }
     }
 }
