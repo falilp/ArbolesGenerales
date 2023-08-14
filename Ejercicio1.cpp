@@ -179,8 +179,8 @@ template<typename T>
 void poda(Agen<T> &A,typename Agen<T>::nodo nodo){
     if(nodo != A.NODO_NULO){
         while(A.hijoIzqdo(nodo) != agen.NODO_NULO){
-           poda(A,A.hijoIzqdo(nodo));
-           A.eliminarHijoIzqdo(nodo); 
+            poda(A,A.hijoIzqdo(nodo));
+            A.eliminarHijoIzqdo(nodo);
         }
     }
 }
@@ -204,7 +204,11 @@ void BusquedaX(Agen<T> &A,T X,typename Agen<T>::nodo nodo){
 template<typename T>
 void PodaDeX(Agen<T> &A,T X){
     if(!A.arbolVacio()){
-        BusquedaX(A,X,A.raiz());
+        if(X == A.elemento(A.raiz())){
+            poda(A,A.raiz());            
+        }else{   
+            BusquedaX(A,X,A.raiz());
+        }
     }
 }
 
