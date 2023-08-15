@@ -58,14 +58,56 @@ unsigned int AgenReflejados(const Agen<T> &A){
 #pragma endregion
 
 #pragma region Ejercicio2
+/*Arboles similares son aquellos que sus hojas coinciden en posición y elemento*/
+
+template <typename T>
+bool Hoja(const Agen<T> &A, const typename Agen<T>::nodo nodo){
+    if(A.NODO_NULO == A.hijoIzqdo(nodo)){
+        return true;
+    }else{
+        return false;
+    }
+}
+
+template <typename T>
+bool RecAgenSimilares(const Agen<T> &A, const Agen<T> &B, const typename Agen<T>::nodo nodoA, const typename Agen<T>::nodo nodoB){
+    if((nodoA == A.NODO_NULO) && (nodoB == B.NODO_NULO)){
+        return true;
+    }else if((nodoA == A.NODO_NULO) || (nodoB == B.NODO_NULO)){
+        return false;
+    }else if(Hoja(A,nodoA) && Hoja(B,nodoB) && (A.elemento(nodoA) != B.elemento(nodoB))){
+        return false;
+    }else{
+        bool similares = true;
+        typename Agen<T>::nodo nodoAuxA = A.hijoIzqdo(nodoA);
+        typename Agen<T>::nodo nodoAuxB = B.hijoIzqdo(nodoB);
+
+        while((nodoAuxA != A.NODO_NULO) && (nodoAuxB != B.NODO_NULO)){
+            similares = similares && RecAgenSimilares(A,B,nodoAuxA,nodoAuxB);
+            nodoAuxA = A.hermDrcho(nodoAuxA);
+            nodoAuxB = B.hermDrcho(nodoAuxB);
+        }
+        return similares;
+    }
+}
+
+template <typename T>
+bool AgenSimilares(const Agen<T> &A, const Agen<T> &B){
+    if(A.arbolVacio() && B.arbolVacio()){
+        return true;
+    }else if(A.arbolVacio() || B.arbolVacio()){
+        return false;
+    }else{
+        return RecAgenSimilares(A,B);
+    }
+}
 
 #pragma endregion
 
 #pragma region Ejercicio3
+/*El desequilibrio de un arbol general es la maxima diferencia pesos de los subarboles de N, el peso del nodo es numero de nodos hojas*/
 
-#pragma endregion
 
-#pragma region Ejercicio4
 
 #pragma endregion
 /*
