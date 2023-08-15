@@ -107,7 +107,71 @@ bool AgenSimilares(const Agen<T> &A, const Agen<T> &B){
 #pragma region Ejercicio3
 /*El desequilibrio de un arbol general es la maxima diferencia pesos de los subarboles de N, el peso del nodo es numero de nodos hojas*/
 
+typedef struct Nhojas{
+    unsigned int MaxHojas;
+    unsigned int MinHojas;
+    Nhojas(unsigned int max = 0,unsigned int min = 0):MaxHojas(max),MinHojas(min){}
+};
 
+template <typename T>
+bool Hoja(const Agen<T> &A, const typename Agen<T>::nodo nodo){
+    if(A.NODO_NULO == A.hijoIzqdo(nodo)){
+        return true;
+    }else{
+        return false;
+    }
+}
+
+template <typename T>
+Nhojas MaxMinHojasNodo(const Agen<T> &A, const typename Agen<T>::nodo nodo){
+    if(nodo == A.NODO_NULO){
+        return Nhojas;
+    }else{
+        Nhojas hojas(0,0);
+        typename Agen<T>::nodo nodoAux = A.hijoIzqdo(nodo);
+
+        while(nodoAux != A.NODO_NULO){
+            Nhojas HijosHojas = MaxMinHojasNodo(A,nodoAux);
+            hojas.MaxHojas = std::max(hojas.MaxHojas,HijosHojas.MaxHojas);
+            hojas.MinHojas = std::min(hojas.MinHojas,HijosHojas.MinHojas);
+            nodoAux = A.hermDrcho(nodoAux);
+        }
+
+        if(Hoja(nodo)){
+            hojas.MaxHojas++;
+            hojas.MinHojas++;
+        }
+        
+        return hojas;
+    }
+}
+
+template <typename T>
+unsigned int RecAgenDesequilibrado(const Agen<T> &A, const typename Agen<T>::nodo nodo){
+    if(A.NODO_NULO == nodo){
+        return 0;
+    }else{
+        unsigned int desequilibrio = 0;
+        typename Agen<T>::nodo nodoAux = A.hijoIzqdo(nodo);
+
+        while(nodoAux != A.NODO_NULO){
+            Nhojas hojas = MaxMinHojasNodo(A,nodoAux);
+            desequilibrio = std::max(desequilibrio,std::abs(hojas.MaxHojas - hojas.MinHojas));
+            nodoAux = A.hermDrcho(nodoAux);
+        }
+        
+        return std::max(desequilibrio,std::max(RecAgenDesequilibrado(A,A.hijoIzqdo(nodo)),RecAgenDesequilibrado(A,A.hermDrcho(nodo))));
+    }
+}
+
+template <typename T>
+unsigned int AgenDesequilibrado(const Agen<T> &A){
+    if(A.arbolVacio()){
+        return 0;
+    }else{
+        return RecAgenDesequilibrado(A,A.raiz());
+    }
+}
 
 #pragma endregion
 /*
