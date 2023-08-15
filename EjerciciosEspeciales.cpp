@@ -6,14 +6,22 @@
 Reflejados es que tenga la misma estructura de ramificacion.*/
 
 template <typename T>
-bool Reflejo(const Agen<T> &A, const typename Agen<T>::nodo nodo1, const typename Agen<T>::nodo nodo2){
-    /*if(nodoD == abin.NODO_NULO && abin.NODO_NULO == nodoI){
+bool ReflejoAgen(const Agen<T> &A, const typename Agen<T>::nodo nodo1, const typename Agen<T>::nodo nodo2){
+    if(nodo1 == A.NODO_NULO && A.NODO_NULO == nodo2){
         return true;
-    }else if(nodoD == abin.NODO_NULO || abin.NODO_NULO == nodoI){
+    }else if(nodo1 == A.NODO_NULO || A.NODO_NULO == nodo2){
         return false;
     }else{
-        return abin.elemento(nodoI) == abin.elemento(nodoD) && Reflejo(abin,abin.hijoIzqdo(nodoI),abin.hijoDrcho(nodoD)) && Reflejo(abin,abin.hijoDrcho(nodoI),abin.hijoIzqdo(nodoD));
-    }*/
+        bool reflejo = true;
+        while(nodo1 != A.NODO_NULO){
+            while(nodo2 != A.NODO_NULO){
+                reflejo = reflejo && Reflejo(A,nodo1,nodo2);
+                nodo2 = A.hermDrcho(nodo2);
+            }
+            nodo1 = A.hermDrcho(nodo1);
+        }
+        return reflejo;
+    }
 }
 
 template <typename T>
